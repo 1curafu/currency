@@ -23,4 +23,3 @@ urlpatterns = [
     path('rate/list', list_rates),
     path('contact/list', list_contacts)
 ]
-

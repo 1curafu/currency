@@ -20,6 +20,6 @@ from currency.views import list_rates, list_contacts
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('rate/list', list_rates),
-    path('contact/list', list_contacts)
+    path('rate/list/', list_rates),
+    path('contact/list/', list_contacts)
 ]

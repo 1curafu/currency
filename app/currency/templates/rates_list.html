@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Rates
+{% endblock title %}
+
+{% block content %}
+<table border="1" cellpadding="5" cellspacing="0" style="width: 100%">
+    <thread>Rates table
+        <tr>
+            <td>ID</td><td>Created</td><td>Buy</td><td>Sell</td><td>Currency</td><td>Source</td>
+        </tr>
+        {% for rate in rates %}
+            <tr>
+                <td>{{ rate.id }}</td>
+                <td>{{ rate.created }}</td>
+                <td>{{ rate.buy }}</td>
+                <td>{{ rate.sell }}</td>
+                <td>{{ rate.currency }}</td>
+                <td>{{ rate.source }}</td>
+            </tr>
+        {% endfor %}
+    </thread>
+</table>
+{% endblock content %}
+

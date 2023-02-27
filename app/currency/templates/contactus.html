@@ -8,14 +8,18 @@
 <table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
     <thread> Contact table
         <tr>
-            <th>ID</th><th>Email_From</th><th>Subject</th><th>Message</th>
+            <th>ID</th><th>Email_From</th><th>Subject</th>
+            <th>Detail</th><th>Update</th><th>Delete</th>
         </tr>
+        <a href="/contact/create">Create</a>
     {% for contact in contacts %}
         <tr>
             <td>{{ contact.id }}</td>
             <td>{{ contact.email_from }}</td>
             <td>{{ contact.subject }}</td>
-            <td>{{ contact.message }}</td>
+            <td><a href="/contact/detail/{{ contact.id }}/">Detail</a></td>
+            <td><a href="/contact/update/{{ contact.id }}/">Update</a></td>
+            <td><a href="/contact/delete/{{ contact.id }}/">Delete</a></td>
         </tr>
     {% endfor %}
     </thread>

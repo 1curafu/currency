@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+ {% block title %}
+    Source
+{% endblock title %}
+
+{% block content %}
+<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
+    <thread> Source table
+        <tr>
+            <td>ID</td><td>Name</td>
+            <td>URL</td><td>Country</td><td>City</td>
+        </tr>
+    </thread>
+    <tbody>
+        <tr>
+            <td>{{ source.id }}</td>
+            <td>{{ source.name }}</td>
+            <td>{{ source.source_url }}</td>
+            <td>{{ source.country }}</td>
+            <td>{{ source.city }}</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock content %}

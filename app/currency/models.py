@@ -13,3 +13,10 @@ class ContactUs(models.Model):
     email_from = models.EmailField(max_length=255)
     subject = models.CharField(max_length=50)
     message = models.CharField(max_length=255)
+
+
+class Source(models.Model):
+    name = models.CharField(max_length=64)
+    source_url = models.URLField(max_length=255)
+    country = models.CharField(max_length=64)
+    city = models.CharField(max_length=64, null=False, blank=False)

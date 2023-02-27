@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title%}
+    Delete Contact
+{% endblock title %}
+
+{%block content %}
+    Do you really want to delete Contact with id {{contact.id}}?
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes</button>
+    </form>
+{% endblock content %}

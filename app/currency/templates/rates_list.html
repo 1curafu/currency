@@ -5,22 +5,24 @@
 {% endblock title %}
 
 {% block content %}
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%">
+<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
     <thread>Rates table
         <tr>
-            <th>ID</th><th>Created</th><th>Buy</th><th>Sell</th><th>Currency</th><th>Source</th>
+            <th>ID</th><th>Buy</th><th>Sell</th><th>Currency</th>
+            <th>Detail</th><th>Update</th><th>Delete</th>
         </tr>
+        <a href="/rate/create">Create</a>
         {% for rate in rates %}
             <tr>
-                <td>{{ rate.id }}</td>
-                <td>{{ rate.created }}</td>
+                <td>{{ rate.id }}</td> 
                 <td>{{ rate.buy }}</td>
                 <td>{{ rate.sell }}</td>
                 <td>{{ rate.currency }}</td>
-                <td>{{ rate.source }}</td>
+                <td><a href="/rate/detail/{{ rate.id }}/">Detail</a></td>
+                <td><a href="/rate/update/{{ rate.id }}/">Update</a></td>
+                <td><a href="/rate/delete/{{ rate.id }}/">Delete</a></td>
             </tr>
         {% endfor %}
     </thread>
 </table>
 {% endblock content %}
-

@@ -9,19 +9,18 @@
     <thread> Source table
         <tr>
             <th>ID</th><th>Name</th><th>URL</th><th>Country</th>
-            <th>City</th><th>Details</th><th>Update</th><th>Delete</th>
+            <th>Details</th><th>Update</th><th>Delete</th>
         </tr>
-        <a href="/source/create">Create</a>
-        {% for source in sources %}
+        <a href="{% url 'currency:source-create' %}">Create</a>
+        {% for source in object_list %}
             <tr>
                 <td>{{ source.id }}</td>
                 <td>{{ source.name }}</td>
                 <td>{{ source.source_url }}</td>
                 <td>{{ source.country }}</td>
-                <td>{{ source.city }}</td>
-                <td><a href="/source/details/{{ source.id }}/">Details</a></td>
-                <td><a href="/source/update/{{ source.id }}/">Update</a></td>
-                <td><a href="/source/delete/{{ source.id }}/">Delete</a></td>
+                <td><a href="{% url 'currency:source-detail' source.id %}">Detail</a></td>
+                <td><a href="{% url 'currency:source-update' source.id %}">Update</a></td>
+                <td><a href="{% url 'currency:source-delete' source.id %}">Delete</a></td>
             </tr>
         {% endfor %}
     </thread>

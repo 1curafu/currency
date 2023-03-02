@@ -11,15 +11,15 @@
             <th>ID</th><th>Email_From</th><th>Subject</th>
             <th>Detail</th><th>Update</th><th>Delete</th>
         </tr>
-        <a href="/contact/create">Create</a>
-    {% for contact in contacts %}
+        <a href="{% url 'currency:contact-create' %}">Create</a>
+    {% for contact in object_list %}
         <tr>
             <td>{{ contact.id }}</td>
             <td>{{ contact.email_from }}</td>
             <td>{{ contact.subject }}</td>
-            <td><a href="/contact/detail/{{ contact.id }}/">Detail</a></td>
-            <td><a href="/contact/update/{{ contact.id }}/">Update</a></td>
-            <td><a href="/contact/delete/{{ contact.id }}/">Delete</a></td>
+            <td><a href="{% url 'currency:contact-detail' contact.id %}">Detail</a></td>
+            <td><a href="{% url 'currency:contact-update' contact.id %}">Update</a></td>
+            <td><a href="{% url 'currency:contact-delete' contact.id %}">Delete</a></td>
         </tr>
     {% endfor %}
     </thread>

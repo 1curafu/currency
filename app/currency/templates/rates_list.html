@@ -11,16 +11,16 @@
             <th>ID</th><th>Buy</th><th>Sell</th><th>Currency</th>
             <th>Detail</th><th>Update</th><th>Delete</th>
         </tr>
-        <a href="/rate/create">Create</a>
-        {% for rate in rates %}
+        <a href="{% url 'currency:rate-create' %}">Create</a>
+        {% for rate in object_list %}
             <tr>
                 <td>{{ rate.id }}</td> 
                 <td>{{ rate.buy }}</td>
                 <td>{{ rate.sell }}</td>
                 <td>{{ rate.currency }}</td>
-                <td><a href="/rate/detail/{{ rate.id }}/">Detail</a></td>
-                <td><a href="/rate/update/{{ rate.id }}/">Update</a></td>
-                <td><a href="/rate/delete/{{ rate.id }}/">Delete</a></td>
+                <td><a href="{% url 'currency:rate-detail' rate.id %}">Detail</a></td>
+                <td><a href="{% url 'currency:rate-update' rate.id %}">Update</a></td>
+                <td><a href="{% url 'currency:rate-delete' rate.id %}">Delete</a></td>
             </tr>
         {% endfor %}
     </thread>

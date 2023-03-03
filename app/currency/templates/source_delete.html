@@ -5,7 +5,7 @@
 {% endblock title %}
 
 {% block content %}
-    Do you really want to delete the source with id {{ source.name }}?
+    Do you really want to delete the source with id {{ source.id }}?
     <form method="post">
         {% csrf_token %}
         <input type="submit" value="Yes">

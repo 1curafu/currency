@@ -3,3 +3,4 @@
 'make migrate'
 'make makemigrations'
 'make setup'
+'make createsuperuser'

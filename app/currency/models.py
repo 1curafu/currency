@@ -1,9 +1,14 @@
 from django.db import models
 
+from currency.choices import RateCurrencyChoices
+
 
 class Rate(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    currency = models.CharField(max_length=25)
+    currency = models.PositiveSmallIntegerField(
+        choices=RateCurrencyChoices.choices,
+        default=RateCurrencyChoices.USD,
+    )   # if field has choices get_{field_name}_display() - get_currency_display()
     buy = models.DecimalField(max_digits=6, decimal_places=2)
     sell = models.DecimalField(max_digits=6, decimal_places=2)
     source = models.CharField(max_length=25)

@@ -15,3 +15,6 @@ shell:
 
 setup:
 	pip install -r requirements.txt
+
+createsuperuser:
+	$(manage_py) createsuperuser

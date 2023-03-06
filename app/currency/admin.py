@@ -25,15 +25,6 @@ class RateAdmin(ImportExportModelAdmin):
         'sell',
     )
 
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
 
 @admin.register(ContactUs)
 class ContactUsAdmin(ImportExportModelAdmin):
@@ -82,12 +73,3 @@ class SourceAdmin(ImportExportModelAdmin):
         'country',
         'city',
     )
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Request Response Log
+{% endblock title %}
+
+{% block content %}
+      Do you want to delete data with id {{ requestresponselog.id }} ?
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Delete">
+    </form>
+{% endblock content %}

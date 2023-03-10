@@ -8,13 +8,14 @@
 <table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
     <thread> Contact table
         <tr>
-            <th>ID</th><th>Email_From</th><th>Subject</th>
+            <th>ID</th><th>Name</th><th>Email_From</th><th>Subject</th>
             <th>Detail</th><th>Update</th><th>Delete</th>
         </tr>
         <a href="{% url 'currency:contact-create' %}">Create</a>
     {% for contact in object_list %}
         <tr>
             <td>{{ contact.id }}</td>
+            <td>{{ contact.name }}</td>
             <td>{{ contact.email_from }}</td>
             <td>{{ contact.subject }}</td>
             <td><a href="{% url 'currency:contact-detail' contact.id %}">Detail</a></td>

@@ -8,13 +8,14 @@
 <table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
     <thread> Contact table
         <tr>
-            <td>ID</td><td>Email</td>
-            <td>Subject</td><td>Message</td>
+            <th>ID</th><th>Name</th><th>Email</th>
+            <th>Subject</th><th>Message</th>
         </tr>
     </thread>
     <tbody>
         <tr>
             <td>{{ contactus.id }}</td>
+            <td>{{ contactus.name }}</td>
             <td>{{ contactus.email_from }}</td>
             <td>{{ contactus.subject }}</td>
             <td>{{ contactus.message }}</td>

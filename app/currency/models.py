@@ -15,6 +15,7 @@ class Rate(models.Model):
 
 
 class ContactUs(models.Model):
+    name = models.CharField(max_length=128, default='')
     email_from = models.EmailField(max_length=255)
     subject = models.CharField(max_length=50)
     message = models.CharField(max_length=255)
@@ -25,3 +26,12 @@ class Source(models.Model):
     source_url = models.URLField(max_length=255)
     country = models.CharField(max_length=64)
     city = models.CharField(max_length=64, null=False, blank=False)
+    
+
+class RequestResponseLog(models.Model):
+    path = models.CharField(max_length=255)
+    request_method = models.CharField(max_length=255)
+    time = models.FloatField()
+    
+    def __str__(self):
+        return f'ID: {self.id}, Path: {self.path}, Method: {self.request_method}'

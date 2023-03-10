@@ -1,5 +1,5 @@
 from django.contrib import admin
-from currency.models import Rate, ContactUs, Source
+from currency.models import Rate, ContactUs, Source, RequestResponseLog
 
 from import_export.admin import ImportExportModelAdmin
 from rangefilter.filters import DateRangeFilter
@@ -73,3 +73,19 @@ class SourceAdmin(ImportExportModelAdmin):
         'country',
         'city',
     )
+
+
+@admin.register(RequestResponseLog)
+class RequestResponseLogAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'path',
+        'request_method',
+        'time',
+    )
+    search_fields = (
+        'request_method',
+    )
+    
+    def has_add_permission(self, request):
+        return False

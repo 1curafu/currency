@@ -1,0 +1,24 @@
+{% extends 'base.html'%}
+
+{% block title %}
+    Request Response Log
+{% endblock title %}
+
+{% block content %}
+<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
+    <thread> Request Response Log table
+        <tr>
+            <th>ID</th><td>Path</td><td>Request method</td><td>Time</td><td>Delete</td>
+        </tr>
+        {% for RequestResponseLog in object_list %}
+            <tr>
+                <td>{{ RequestResponseLog.id }}</td>
+                <td>{{ RequestResponseLog.path }}</td>
+                <td>{{ RequestResponseLog.request_method }}</td>
+                <td>{{ RequestResponseLog.time }}</td>
+                <td><a href="{% url 'currency:req-delete' RequestResponseLog.id %}">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </thread>
+</table>
+{% endblock content %}

@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from currency.models import Rate, ContactUs, Source, RequestResponseLog
-from currency.forms import RateForm, ContactUsForm, SourceForm, RequestResponseLogForm
+from currency.forms import RateForm, ContactUsForm, SourceForm
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
@@ -49,14 +49,14 @@ class ContactUsCreateView(CreateView):
     template_name = 'contactus_create.html'
     form_class = ContactUsForm
     success_url = reverse_lazy('currency:contact-list')
-    
+
     def _send_mail(self):
         subject = 'User ContactUs'
         recipient = 'support@example.com'
         message = f'''
-            Request from: {self.object.name}. 
-            Reply to email: {self.object.email_from}. 
-            Subject: {self.object.subject}. 
+            Request from: {self.object.name}.
+            Reply to email: {self.object.email_from}.
+            Subject: {self.object.subject}.
             Message: {self.object.message}.
         '''
 
@@ -127,5 +127,3 @@ class RequestResponseLogDeleteView(DeleteView):
     template_name = 'request_response_log_delete.html'
     success_url = reverse_lazy('currency:req-list')
     queryset = RequestResponseLog.objects.all()
-
-

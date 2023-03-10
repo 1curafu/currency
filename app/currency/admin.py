@@ -86,6 +86,6 @@ class RequestResponseLogAdmin(admin.ModelAdmin):
     search_fields = (
         'request_method',
     )
-    
+
     def has_add_permission(self, request):
         return False

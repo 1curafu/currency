@@ -9,11 +9,11 @@ class RequestResponseTimeMiddleware:
 
     def __call__(self, request):
         start_time = time()
-        
+
         response = self.get_response(request)
-        
+
         end_time = time()
-        
+
         time_taken = end_time - start_time
         path = request.path
         request_method = request.method

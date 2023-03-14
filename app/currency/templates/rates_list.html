@@ -18,7 +18,7 @@
                 <td>{{ rate.buy }}</td>
                 <td>{{ rate.sell }}</td>
                 <td>{{ rate.get_currency_display }}</td>
-                {%if request.user.is_authenticated %}
+                {% if request.user.is_authenticated %}
                     <td><a href="{% url 'currency:rate-detail' rate.id %}">Detail</a></td>
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.is_superuser %}

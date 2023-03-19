@@ -1,19 +1,20 @@
 <p>
-    <a href="{% url 'currency:rate-list' %}">Rate</a>
-    
-    <a href="{% url 'currency:contact-list' %}">Contact</a>
-    
-    <a href="{% url 'currency:source-list' %}">Source</a>
-    
-    <a href="{% url 'currency:req-list' %}">Request Response Log</a>
-    
     {% if request.user.is_authenticated %}
-        Welcome {{ request.user.email }}
+    <h2>Welcome {{ request.user.email }}</h2>
         <a href="{% url 'profile' %}">Profile</a>
     
         <a href='{% url 'logout'%}' >Logout</a>
     {% else %}
-        <a href="#">Sign Up</a>
-        <a href='{% url 'login'%}' >Login</a>
+    <a href="{% url 'account:signup' %}">Sign Up </a>
+    <a href='{% url 'login'%}' >Login </a>
     {% endif %}
 </p>
+    <div>
+        <a href="{% url 'currency:rate-list' %}">Rate</a>
+
+        <a href="{% url 'currency:contact-list' %}">Contact</a>
+
+        <a href="{% url 'currency:source-list' %}">Source</a>
+
+        <a href="{% url 'currency:req-list' %}">Request Response Log</a>
+    </div>

@@ -9,7 +9,13 @@
     <thread>Rates table
         <tr>
             <th>ID</th><th>Buy</th><th>Sell</th><th>Currency</th>
-            <th>Detail</th><th>Update</th><th>Delete</th>
+            <th>Source</th>
+        {% if not request.user.is_anonymous %}
+            <th>Detail</th>
+        {% endif %}
+        {% if request.user.is_superuser %}
+            <th>Update</th><th>Delete</th>
+        {% endif %}
         </tr>
         <a href="{% url 'currency:rate-create' %}">Create</a>
         {% for rate in object_list %}
@@ -18,10 +24,11 @@
                 <td>{{ rate.buy }}</td>
                 <td>{{ rate.sell }}</td>
                 <td>{{ rate.get_currency_display }}</td>
+                <td>{{ rate.source }}</td>
                 {% if request.user.is_authenticated %}
                     <td><a href="{% url 'currency:rate-detail' rate.id %}">Detail</a></td>
                 {% endif %}
-                {% if request.user.is_authenticated and request.user.is_superuser %}
+                {% if request.user.is_superuser %}
                     <td><a href="{% url 'currency:rate-update' rate.id %}">Update</a></td>
                     <td><a href="{% url 'currency:rate-delete' rate.id %}">Delete</a></td>
                 {% endif %}

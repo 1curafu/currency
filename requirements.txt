@@ -6,6 +6,9 @@ ipython==8.10.0
 django-debug-toolbar==3.8.1
 django-admin-rangefilter==0.9.0
 django-import-export
+django-crispy-forms==2.0
+crispy-bootstrap==5-0.7
+django-storages==1.13.2
 
 #flake8
 flake8

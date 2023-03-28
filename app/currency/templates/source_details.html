@@ -5,21 +5,26 @@
 {% endblock title %}
 
 {% block content %}
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
-    <thread> Source table
+<div class="row col-12">
+    <table class="table table-striped">
+        <thead>
         <tr>
-            <th>ID</th><th>Name</th>
-            <th>URL</th><th>Country</th><th>City</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">URL</th>
+            <th scope="col">Country</th>
+            <th scope="col">City</th>
         </tr>
-    </thread>
-    <tbody>
-        <tr>
-            <td>{{ source.id }}</td>
-            <td>{{ source.name }}</td>
-            <td>{{ source.source_url }}</td>
-            <td>{{ source.country }}</td>
-            <td>{{ source.city }}</td>
-        </tr>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ source.id }}</td>
+                <td>{{ source.name }} <img src="{{ source.avatar_url }}" width="30" height="30"></td>
+                <td>{{ source.source_url }}</td>
+                <td>{{ source.country }}</td>
+                <td>{{ source.city }}</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
 {% endblock content %}

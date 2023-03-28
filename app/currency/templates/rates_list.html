@@ -5,35 +5,49 @@
 {% endblock title %}
 
 {% block content %}
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
-    <thread>Rates table
-        <tr>
-            <th>ID</th><th>Buy</th><th>Sell</th><th>Currency</th>
-            <th>Source</th>
-        {% if not request.user.is_anonymous %}
-            <th>Detail</th>
-        {% endif %}
-        {% if request.user.is_superuser %}
-            <th>Update</th><th>Delete</th>
-        {% endif %}
-        </tr>
-        <a href="{% url 'currency:rate-create' %}">Create</a>
-        {% for rate in object_list %}
+
+    <a href="{% url 'currency:rate-create' %}">Create</a><br>
+    <div class="row col-12">
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>{{ rate.id }}</td> 
-                <td>{{ rate.buy }}</td>
-                <td>{{ rate.sell }}</td>
-                <td>{{ rate.get_currency_display }}</td>
-                <td>{{ rate.source }}</td>
-                {% if request.user.is_authenticated %}
-                    <td><a href="{% url 'currency:rate-detail' rate.id %}">Detail</a></td>
-                {% endif %}
-                {% if request.user.is_superuser %}
-                    <td><a href="{% url 'currency:rate-update' rate.id %}">Update</a></td>
-                    <td><a href="{% url 'currency:rate-delete' rate.id %}">Delete</a></td>
-                {% endif %}
+                <th scope="col">#</th>
+                <th scope="col">ID</th>
+                <th scope="col">Buy</th>
+                <th scope="col">Sell</th>
+                <th scope="col">Currency</th>
+                <th scope="col">Source</th>
+                <th scope="col">Actions</th>
             </tr>
-        {% endfor %}
-    </thread>
-</table>
+            </thead>
+            <tbody>
+            {% for rate in object_list %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ rate.id }}</td>
+                    <td>{{ rate.buy }}</td>
+                    <td>{{ rate.sell }}</td>
+                    <td>{{ rate.get_currency_display }}</td>
+                    <td>{{ rate.source }} <img src="{{ rate.source.avatar_url }}" width="30" height="30"></td>
+                    <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                          Actions
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            {% if request.user.is_authenticated %}
+                                <a class="dropdown-item" href="{% url 'currency:rate-detail' rate.id %}">Details</a>
+                            {% endif %}
+                            {% if request.user.is_superuser %}
+                                <a class="dropdown-item" href="{% url 'currency:rate-update' rate.id %}">Update</a>
+                                <a class="dropdown-item" href="{% url 'currency:rate-delete' rate.id %}">Delete</a>
+                            {% endif %}    
+                        </ul>
+                      </div>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock content %}

@@ -5,24 +5,43 @@
 {% endblock title %}
 
 {% block content %}
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
-    <thread> Contact table
+
+<a href="{% url 'currency:contact-create' %}">Create</a><br>
+<div class="row col-12">
+    <table class="table table-striped">
+        <thead>
         <tr>
-            <th>ID</th><th>Name</th><th>Email_From</th><th>Subject</th>
-            <th>Detail</th><th>Update</th><th>Delete</th>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Subject</th>
+            <th scope="col">Actions</th>
         </tr>
-        <a href="{% url 'currency:contact-create' %}">Create</a>
-    {% for contact in object_list %}
-        <tr>
-            <td>{{ contact.id }}</td>
-            <td>{{ contact.name }}</td>
-            <td>{{ contact.email_from }}</td>
-            <td>{{ contact.subject }}</td>
-            <td><a href="{% url 'currency:contact-detail' contact.id %}">Detail</a></td>
-            <td><a href="{% url 'currency:contact-update' contact.id %}">Update</a></td>
-            <td><a href="{% url 'currency:contact-delete' contact.id %}">Delete</a></td>
-        </tr>
-    {% endfor %}
-    </thread>
-</table>
+        </thead>
+        <tbody>
+        {% for contact in object_list %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.email_from }}</td>
+                <td>{{ contact.subject }}</td>
+                <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Actions
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a class="dropdown-item" href="{% url 'currency:contact-detail' contact.id %}">Detail</a>
+                        <a class="dropdown-item" href="{% url 'currency:contact-update' contact.id %}">Update</a>
+                        <a class="dropdown-item" href="{% url 'currency:contact-delete' contact.id %}">Delete</a>
+                    </ul>
+                    </div>
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
 {% endblock content %}

@@ -32,7 +32,8 @@ class SourceForm(forms.ModelForm):
             'name',
             'source_url',
             'country',
-            'city'
+            'city',
+            'avatar',
         )
 
 

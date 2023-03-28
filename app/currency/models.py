@@ -1,6 +1,7 @@
 from django.db import models
 
 from currency.choices import RateCurrencyChoices
+from django.templatetags.static import static
 
 
 class Rate(models.Model):
@@ -12,6 +13,13 @@ class Rate(models.Model):
     buy = models.DecimalField(max_digits=6, decimal_places=2)
     sell = models.DecimalField(max_digits=6, decimal_places=2)
     source = models.ForeignKey('currency.Source', on_delete=models.CASCADE, related_name='rates')
+
+    @property
+    def avatar_url(self):
+        if self.avatar:
+            return self.avatar.url
+
+        return static('bank.jpeg')
 
     def __str__(self):
         return f'Currency: {self.get_currency_display()}, Buy: {self.buy}'
@@ -28,11 +36,28 @@ class ContactUs(models.Model):
         verbose_name_plural = 'Contact Us'
 
 
+def avatar_path(instance, filename):
+    return f'avatars/{instance.id}/{filename}'
+
+
 class Source(models.Model):
     name = models.CharField(max_length=64)
     source_url = models.URLField(max_length=255)
     country = models.CharField(max_length=64)
     city = models.CharField(max_length=64, null=False, blank=False)
+    avatar = models.FileField(
+        default=None,
+        null=True,
+        blank=True,
+        upload_to=avatar_path
+    )
+
+    @property
+    def avatar_url(self):
+        if self.avatar:
+            return self.avatar.url
+
+        return static('bank.jpeg')
 
     def __str__(self):
         return self.name

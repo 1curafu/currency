@@ -8,6 +8,6 @@
     Do you really want to delete the source with id {{ source.id }}?
     <form method="post">
         {% csrf_token %}
-        <input type="submit" value="Yes">
+        <input type="submit" class="btn btn-primary" value="Yes">
     </form>
 {% endblock content %}

@@ -5,20 +5,39 @@
 {% endblock title %}
 
 {% block content %}
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
-    <thread> Request Response Log table
+<div class="row col-12">
+    <table class="table table-striped">
+        <thead>
         <tr>
-            <th>ID</th><td>Path</td><td>Request method</td><td>Time</td><td>Delete</td>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col">Path</th>
+            <th scope="col">Request method</th>
+            <th scope="col">Time</th>
+            <th scope="col">Actions</th>
         </tr>
+        </thead>
+        <tbody>
         {% for RequestResponseLog in object_list %}
             <tr>
+                <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ RequestResponseLog.id }}</td>
                 <td>{{ RequestResponseLog.path }}</td>
                 <td>{{ RequestResponseLog.request_method }}</td>
                 <td>{{ RequestResponseLog.time }}</td>
-                <td><a href="{% url 'currency:req-delete' RequestResponseLog.id %}">Delete</a></td>
-            </tr>
-        {% endfor %}
-    </thread>
-</table>
-{% endblock content %}
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Actions
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <a class="dropdown-item" href="{% url 'currency:req-delete' RequestResponseLog.id %}">Delete</a>
+                        </ul>
+                        </div>
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    {% endblock content %}   

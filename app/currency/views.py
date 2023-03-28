@@ -1,6 +1,5 @@
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from currency.models import Rate, ContactUs, Source, RequestResponseLog
 from currency.forms import RateForm, ContactUsForm, SourceForm
@@ -136,16 +135,3 @@ class RequestResponseLogDeleteView(DeleteView):
     template_name = 'request_response_log_delete.html'
     success_url = reverse_lazy('currency:req-list')
     queryset = RequestResponseLog.objects.all()
-
-
-class ProfileView(LoginRequiredMixin, UpdateView):
-    template_name = 'registration/profile.html'
-    success_url = reverse_lazy('index')
-    queryset = get_user_model().objects.all()
-    fields = (
-        'first_name',
-        'last_name',
-    )
-
-    def get_object(self, queryset=None):
-        return self.request.user

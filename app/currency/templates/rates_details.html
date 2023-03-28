@@ -5,22 +5,29 @@
 {% endblock title %}
 
 {% block content %}
-<table border="1" cellpadding="5" cellspacing="0" style="width: 100%;">
-    <thread> Rates table
+<div class="row col-12">
+    <table class="table table-striped">
+        <thead>
         <tr>
-            <th>ID</th><th>Buy</th><th>Sell</th><th>Currency</th>
-            <th>Source</th><th>Created</th>
+            <th scope="col">ID</th>
+            <th scope="col">Buy</th>
+            <th scope="col">Sell</th>
+            <th scope="col">Currency</th>
+            <th scope="col">Source</th>
+            <th scope="col">Created</th>
         </tr>
-    </thread>
-    <tbody>
-        <tr>
-            <td>{{ rate.id }}</td>
-            <td>{{ rate.buy }}</td>
-            <td>{{ rate.sell }}</td>
-            <td>{{ rate.get_currency_display }}</td>
-            <td>{{ rate.source }}</td>
-            <td>{{ rate.created }}</td>
-        </tr>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ rate.id }}</td>
+                <td>{{ rate.buy }}</td>
+                <td>{{ rate.sell }}</td>
+                <td>{{ rate.get_currency_display }}</td>
+                <td>{{ rate.source }} <img src="{{ rate.source.avatar_url }}" width="30" height="30"> </td>
+                <td>{{ rate.created }}</td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
 {% endblock content %}
+    

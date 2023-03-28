@@ -37,7 +37,7 @@ class ContactUs(models.Model):
 
 
 def avatar_path(instance, filename):
-    return f'banks/{instance.id}/{filename}'
+    return f'avatars/{instance.id}/{filename}'
 
 
 class Source(models.Model):

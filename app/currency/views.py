@@ -1,9 +1,9 @@
-from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+
 from currency.models import Rate, ContactUs, Source, RequestResponseLog
 from currency.forms import RateForm, ContactUsForm, SourceForm
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
 class RateListView(ListView):
@@ -60,21 +60,15 @@ class ContactUsCreateView(CreateView):
 
     def _send_mail(self):
         subject = 'User ContactUs'
-        recipient = settings.DEFAULT_FROM_EMAIL
         message = f'''
             Request from: {self.object.name}.
             Reply to email: {self.object.email_from}.
             Subject: {self.object.subject}.
             Message: {self.object.message}.
         '''
-
-        from django.core.mail import send_mail
-        send_mail(
-            subject,
-            message,
-            recipient,
-            [recipient],
-            fail_silently=False,
+        from currency.tasks import send_mail
+        send_mail.apply_async(
+            kwargs={'subject': subject, 'message': message},
         )
 
     def form_valid(self, form):

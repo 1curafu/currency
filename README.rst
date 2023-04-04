@@ -4,3 +4,4 @@
 'make makemigrations' - create new migrations
 'make setup' - run the setup script
 'make createsuperuser' - create a superuser
+'brew services start/stop rabbitmq' - start/stop rabbitmq

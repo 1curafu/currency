@@ -10,7 +10,7 @@ class RateAdmin(ImportExportModelAdmin):
     list_display = (
         'id',
         'buy',
-        'sell',
+        'sale',
         'currency',
         'source',
         'created',
@@ -22,7 +22,7 @@ class RateAdmin(ImportExportModelAdmin):
     search_fields = (
         'source',
         'buy',
-        'sell',
+        'sale',
     )
 
 

@@ -11,8 +11,11 @@ class Rate(models.Model):
         default=RateCurrencyChoices.USD,
     )   # if field has choices get_{field_name}_display() - get_currency_display()
     buy = models.DecimalField(max_digits=6, decimal_places=2)
-    sell = models.DecimalField(max_digits=6, decimal_places=2)
+    sale = models.DecimalField(max_digits=6, decimal_places=2)
     source = models.ForeignKey('currency.Source', on_delete=models.CASCADE, related_name='rates')
+
+    class Meta:
+        ordering = ('-created',)
 
     @property
     def avatar_url(self):
@@ -42,6 +45,7 @@ def avatar_path(instance, filename):
 
 class Source(models.Model):
     name = models.CharField(max_length=64)
+    code_name = models.CharField(max_length=64, unique=True)
     source_url = models.URLField(max_length=255)
     country = models.CharField(max_length=64)
     city = models.CharField(max_length=64, null=False, blank=False)

@@ -33,6 +33,7 @@ class UserSignUpForm(forms.ModelForm):
         password = self.cleaned_data['password1']
         user.is_active = False
         user.username = uuid.uuid4()
+        user.email = user.email.lower()
         user.set_password(password)
         user.save()
 

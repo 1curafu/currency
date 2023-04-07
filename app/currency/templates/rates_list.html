@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
     Rates
 {% endblock title %}
@@ -7,6 +9,11 @@
 {% block content %}
 
     <a href="{% url 'currency:rate-create' %}">Create</a><br>
+    <form method="get">
+        {{ filter.form|crispy }}
+        <input type="submit" />
+    </form>
+    <br>
     <div class="row col-12">
         <table class="table table-striped">
             <thead>
@@ -49,5 +56,7 @@
             </tbody>
         </table>
     </div>
+
+    {% include 'includes/pagination.html' %}
 
 {% endblock content %}

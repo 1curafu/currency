@@ -1,14 +1,25 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django_filters.views import FilterView
 
 from currency.models import Rate, ContactUs, Source, RequestResponseLog
 from currency.forms import RateForm, ContactUsForm, SourceForm
+from currency.filters import RateFilter, SourceFilter, ContactUsFilter, RequestResponseLogFilter
 
 
-class RateListView(ListView):
+class RateListView(FilterView):
     queryset = Rate.objects.all().select_related('source')
     template_name = 'rates_list.html'
+    paginate_by = 10
+    filterset_class = RateFilter
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_pagination'] = '&'.join(
+            f'{key}={value}' for key, value in self.request.GET.items() if key != 'page'
+        )
+        return context
 
 
 class RateDetailView(LoginRequiredMixin, DetailView):
@@ -42,9 +53,18 @@ class RateDeleteView(UserPassesTestMixin, DeleteView):
         return self.request.user.is_superuser
 
 
-class ContactUsListView(ListView):
+class ContactUsListView(FilterView):
     queryset = ContactUs.objects.all()
     template_name = 'contactus.html'
+    paginate_by = 10
+    filterset_class = ContactUsFilter
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_pagination'] = '&'.join(
+            f'{key}={value}' for key, value in self.request.GET.items() if key != 'page'
+        )
+        return context
 
 
 class ContactUsDetailView(DetailView):
@@ -62,7 +82,7 @@ class ContactUsCreateView(CreateView):
         subject = 'User ContactUs'
         message = f'''
             Request from: {self.object.name}.
-            Reply to email: {self.object.email_from}.
+            Reply to email: {self.object.email}.
             Subject: {self.object.subject}.
             Message: {self.object.message}.
         '''
@@ -90,9 +110,18 @@ class ContactUsDeleteView(DeleteView):
     success_url = reverse_lazy('currency:contact-list')
 
 
-class SourceListView(ListView):
+class SourceListView(FilterView):
     queryset = Source.objects.all()
     template_name = 'source_list.html'
+    paginate_by = 10
+    filterset_class = SourceFilter
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_pagination'] = '&'.join(
+            f'{key}={value}' for key, value in self.request.GET.items() if key != 'page'
+        )
+        return context
 
 
 class SourceDetailView(DetailView):
@@ -120,9 +149,18 @@ class SourceDeleteView(DeleteView):
     success_url = reverse_lazy('currency:source-list')
 
 
-class RequestResponseLogListView(ListView):
+class RequestResponseLogListView(FilterView):
     queryset = RequestResponseLog.objects.all()
     template_name = 'request_response_log_list.html'
+    paginate_by = 10
+    filterset_class = RequestResponseLogFilter
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_pagination'] = '&'.join(
+            f'{key}={value}' for key, value in self.request.GET.items() if key != 'page'
+        )
+        return context
 
 
 class RequestResponseLogDeleteView(DeleteView):

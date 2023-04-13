@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
     Contact
 {% endblock title %}
@@ -7,6 +9,11 @@
 {% block content %}
 
 <a href="{% url 'currency:contact-create' %}">Create</a><br>
+<form method="get">
+    {{ filter.form|crispy }}
+    <input type="submit" />
+</form>
+<br>
 <div class="row col-12">
     <table class="table table-striped">
         <thead>
@@ -25,7 +32,7 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ contact.id }}</td>
                 <td>{{ contact.name }}</td>
-                <td>{{ contact.email_from }}</td>
+                <td>{{ contact.email }}</td>
                 <td>{{ contact.subject }}</td>
                 <td>
                 <div class="dropdown">
@@ -43,5 +50,7 @@
         </tbody>
     </table>
 </div>
+
+{% include 'includes/pagination.html' %}
 
 {% endblock content %}

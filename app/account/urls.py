@@ -5,6 +5,7 @@ from account.views import (
     ProfileView
 )
 
+
 app_name = 'account'
 
 

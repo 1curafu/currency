@@ -5,3 +5,4 @@
 'make setup' - run the setup script
 'make createsuperuser' - create a superuser
 'brew services start/stop rabbitmq' - start/stop rabbitmq
+'python app/manage.py test_data' - create test data

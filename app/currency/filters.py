@@ -6,7 +6,17 @@ class RateFilter(django_filters.FilterSet):
 
     class Meta:
         model = Rate
-        fields = ['buy', 'sale', 'currency', 'source']
+        fields = ['buy', 'sale', 'source']
+
+
+class RateAPIFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Rate
+        fields = {
+            'buy': ('gt', 'gte', 'lt', 'lte', 'exact'),
+            'sale': ('gt', 'gte', 'lt', 'lte', 'exact'),
+        }
 
 
 class SourceFilter(django_filters.FilterSet):
@@ -16,11 +26,31 @@ class SourceFilter(django_filters.FilterSet):
         fields = ['name', 'country']
 
 
+class SourceAPIFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = Source
+        fields = {
+            'name': ('icontains', 'istartswith', 'iendswith', 'iexact'),
+            'country': ('icontains', 'istartswith', 'iendswith', 'iexact'),
+        }
+
+
 class ContactUsFilter(django_filters.FilterSet):
 
     class Meta:
         model = ContactUs
-        fields = ['email']
+        fields = ['name', 'subject']
+
+
+class ContactUsAPIFilter(django_filters.FilterSet):
+
+    class Meta:
+        model = ContactUs
+        fields = {
+            'name': ('icontains', 'istartswith', 'iendswith', 'iexact'),
+            'subject': ('icontains', 'istartswith', 'iendswith', 'iexact'),
+        }
 
 
 class RequestResponseLogFilter(django_filters.FilterSet):

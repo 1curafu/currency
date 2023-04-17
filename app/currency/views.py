@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -6,6 +7,8 @@ from django_filters.views import FilterView
 from currency.models import Rate, ContactUs, Source, RequestResponseLog
 from currency.forms import RateForm, ContactUsForm, SourceForm
 from currency.filters import RateFilter, SourceFilter, ContactUsFilter, RequestResponseLogFilter
+
+from django.http import HttpResponse
 
 
 class RateListView(FilterView):
@@ -167,3 +170,15 @@ class RequestResponseLogDeleteView(DeleteView):
     template_name = 'request_response_log_delete.html'
     success_url = reverse_lazy('currency:req-list')
     queryset = RequestResponseLog.objects.all()
+
+
+def rates_list(request):
+    rates = Rate.objects.all()
+    objects_list = []
+    for rate in rates:
+        objects_list.append({
+            'id': rate.id,
+            'buy': float(rate.buy),
+            'sale': float(rate.sale)
+        })
+    return HttpResponse(json.dumps(objects_list), content_type='application/json')

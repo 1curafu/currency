@@ -1,0 +1,50 @@
+[
+    {
+        "model": "currency.source",
+        "pk": 1,
+        "fields": {
+            "name": "Monobank",
+            "code_name": "monobank",
+            "source_url": "https://www.monobank.ua/",
+            "country": "Ukraine",
+            "city": "Kyiv",
+            "avatar": "avatars/1/monobank.jpeg"
+        }
+    },
+    {
+        "model": "currency.source",
+        "pk": 2,
+        "fields": {
+            "name": "PrivatBank",
+            "code_name": "privatbank",
+            "source_url": "https://privat24.ua",
+            "country": "Ukraine",
+            "city": "Kyiv",
+            "avatar": "avatars/2/privatbank.jpeg"
+        }
+    },
+    {
+        "model": "currency.source",
+        "pk": 3,
+        "fields": {
+            "name": "Oschadbank",
+            "code_name": "oschadbank",
+            "source_url": "https://www.oschadbank.ua",
+            "country": "Ukraine",
+            "city": "Kyiv",
+            "avatar": "avatars/3/oshchadbank.jpeg"
+        }
+    },
+    {
+        "model": "currency.source",
+        "pk": 4,
+        "fields": {
+            "name": "KantonalBank",
+            "code_name": "kantonalbank",
+            "source_url": "",
+            "country": "",
+            "city": "",
+            "avatar": ""
+        }
+    }
+]

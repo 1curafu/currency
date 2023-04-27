@@ -18,8 +18,10 @@ class SourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Source
         fields = (
+            'id',
             'name',
             'source_url',
+            'code_name'
         )
 
 

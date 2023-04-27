@@ -11,11 +11,6 @@ import requests
 def parse_privatbank():
     from currency.models import Rate, Source
 
-    # source = Source.objects.filter(code_name=PRIVATBANK_CODE_NAME).first()
-
-    # if source is None:
-    # source = Source.objects.create(code_name=PRIVATBANK_CODE_NAME, name='Privatbank')
-
     source, _ = Source.objects.get_or_create(
         code_name=PRIVATBANK_CODE_NAME,
         defaults={

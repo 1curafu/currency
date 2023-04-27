@@ -1,6 +1,8 @@
 asgiref==3.6.0
 Celery==5.2.7
 Django==4.1.7
+
+#django
 djangorestframework==3.14.0
 djangorestframework-xml==2.0.0
 djangorestframework-yaml==2.0.0
@@ -12,6 +14,7 @@ django-import-export
 django-storages==1.13.2
 django-filter==23.1
 django-crispy-forms==2.0
+
 crispy-bootstrap5==0.7
 beautifulsoup4==4.12.0
 sqlparse==0.4.3
@@ -23,3 +26,10 @@ drf-yasg
 flake8
 flake8-builtins
 flake8-print
+
+
+#pytest
+pytest==7.3.1
+pytest-django==4.5.2
+pytest-cov==4.0.0
+pytest-mock==3.10.0

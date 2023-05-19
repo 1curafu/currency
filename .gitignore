@@ -3,6 +3,11 @@
 .idea
 *.sqlite3
 __pycache__
-celerybeat-schedule
 .pytest_cache
 .coverage
+local.py
+example
+.env
+ssh
+ssh.pub
+app/celerybeat-schedule.db

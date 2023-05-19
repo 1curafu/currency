@@ -56,6 +56,9 @@ class Source(models.Model):
         upload_to=avatar_path
     )
 
+    class Meta:
+        ordering = ['-id']
+
     @property
     def avatar_url(self):
         if self.avatar:

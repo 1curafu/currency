@@ -1,11 +1,15 @@
 from rest_framework import viewsets
 from rest_framework import filters as rest_framework_filters
 
+
 from currency.throttlers import AnonCurrencyThrottle
 from currency.filters import RateAPIFilter, ContactUsAPIFilter, SourceAPIFilter
 from currency.paginators import RatesPagination, ContactUsPagination, SourcePagination  # generics
 from currency.models import Rate, Source, ContactUs
 from currency.api.v1.serializers import RateSerializer, SourceSerializer, ContactUsSerializer
+from currency.choices import RateCurrencyChoices
+from currency import constants
+
 
 from rest_framework.renderers import JSONRenderer
 from rest_framework_yaml.renderers import YAMLRenderer
@@ -15,6 +19,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 
 from django_filters import rest_framework as filters
+from django.core.cache import cache
 
 
 class RateViewSet(viewsets.ModelViewSet):
@@ -39,6 +44,30 @@ class RateViewSet(viewsets.ModelViewSet):
         rate = self.get_object()
         sz = self.get_serializer(instance=rate)
         return Response(sz.data)
+
+    @action(detail=False, methods=['get'])
+    def latest(self, request, *args, **kwargs):
+        # sourcery skip: use-named-expression
+        latest_rates = []
+
+        cached_rates = cache.get(constants.LATEST_RATE_CACHE)
+        if cached_rates:
+            return Response(cached_rates)
+
+        for source_obj in Source.objects.all():
+            for currency in RateCurrencyChoices:
+                latest = Rate.objects.filter(
+                    source=source_obj,
+                    currency=currency)\
+                    .order_by('-created')\
+                    .first()
+
+                if latest:
+                    latest_rates.append(RateSerializer(instance=latest).data)
+
+        cache.set(constants.LATEST_RATE_CACHE, latest_rates, timeout=60*60*24*7)  # 7 days
+
+        return Response(latest_rates)
 
 
 class ContactUsViewSet(viewsets.ModelViewSet):

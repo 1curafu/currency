@@ -6,7 +6,7 @@ class RateFilter(django_filters.FilterSet):
 
     class Meta:
         model = Rate
-        fields = ['buy', 'sale', 'source']
+        fields = ['buy', 'sale', 'currency', 'source']
 
 
 class RateAPIFilter(django_filters.FilterSet):

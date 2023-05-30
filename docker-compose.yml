@@ -12,7 +12,7 @@ x-defaults: &x-defaults
 
 services:
   backend:
-    #command: python ./app/manage.py runserver
+    #command: python ./app/manage.py runserver 0.0.0.0:8000
     container_name: backend
     ports:
       - "8000:8000"
@@ -75,7 +75,7 @@ services:
       - pgadmin_data:/var/lib/pgadmin
 
   flower:
-    command: celery -A settings flower
+    command: celery -A settings flower 
     image: mher/flower:0.9.7
     container_name: flower
     build: .

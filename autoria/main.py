@@ -9,10 +9,12 @@ import sqlite3
 def random_sleep():
     sleep(random.randint(1, 5))
 
+
 direct = (
     'car_id', 'data_link_to_view', 'car_price', 'salesman_name', 'car_brand_model_year',
     'car_motor', 'car_color'
 )
+
 
 def get_page_content(page: int, size: int = 100) -> str:
     query_parameters = {
@@ -52,24 +54,27 @@ def create_car_list(car_id: str, link: str, price: int, name: str, dictionary: l
     cars_data = [car_id, link, price, name, car_brand_model_year, car_motor, car_color]
     return cars_data
 
+
 class CSVWriter:
-    
+
     def __init__(self, filename, headers):
         self.filename = filename
         self.headers = headers
-        
+
         with open(self.filename, 'w', encoding='UTF8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(headers)
-    
+
     def write(self, row: list):
         with open(self.filename, 'a', encoding='UTF8', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(row)
-        
+
+
 class StdOutWriter:
     def write(self, row: list):
         print(row) # noqa
+
 
 class SQLiteWriter:
     def __init__(self, db_name):
@@ -102,47 +107,44 @@ class SQLiteWriter:
 
         cur.close()
 
+
 def main():
-    
+
     writers = (
         CSVWriter('cars.csv', direct),
         CSVWriter('cars2.csv', direct),
         StdOutWriter(),
         SQLiteWriter('cars_info.db')
     )
-    
+
     page = 2514
-    
 
     while True:
-        
-        
-        print(f"Page: {page}")
-        
+
+        print(f"Page: {page}") # noqa
+
         page_content = get_page_content(page)
-        
+
         page += 1
-        
+
         soup = BeautifulSoup(page_content, features="html.parser")
-    
         search_results = soup.find("div", {"id": "searchResults"})
         ticket_items = search_results.find_all("section", {"class": "ticket-item"})
 
         if not ticket_items:
             break
-        
-        
+
         for ticket_item in ticket_items:
             car_details = ticket_item.find("div", {"class": "hide"})
             car_id = car_details['data-id']
             data_link_to_view = car_details['data-link-to-view']
-            
+
             main_text = get_detail_content(data_link_to_view)
 
             soup_detail = BeautifulSoup(main_text, features="html.parser")
             search = soup_detail.find("div", {"class": "technical-info ticket-checked"})
             car_params = list()
-            
+
             try:
                 search_info = search.findAll("span", {"class": "argument"})
                 for item in search_info:
@@ -154,14 +156,11 @@ def main():
             search_price = search_detail.find("div", {"class": "price_value"})
             search_name = search_detail.find("div", {"class": "seller_info_name bold"})
 
-
             price = ''.join(x for x in search_price.text if x.isdigit())
             if search_name:
                 name = search_name.text
             else:
                 name = None
-            
-
 
             cars_data = create_car_list(car_id, data_link_to_view, price, name, car_params)
 
@@ -169,9 +168,5 @@ def main():
                 writer.write(cars_data)
 
 
-
 if __name__ == '__main__':
     main()
-    
-
-# With the help of the beautifulsoup4 library,you must add parsing of details on the ad from this site: https://auto.ria.com/search/. Record data in csv and sqlite3

@@ -159,9 +159,14 @@ MEDIA_ROOT = BASE_DIR.parent / 'static_content' / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 
-DEFAULT_FROM_EMAIL = 'support@example.com'
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('SENDGRID_API_KEY')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
 
 # AUTH
 LOGIN_REDIRECT_URL = reverse_lazy('index')

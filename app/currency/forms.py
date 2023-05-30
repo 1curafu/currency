@@ -1,5 +1,4 @@
 from django import forms
-
 from currency.models import Rate, ContactUs, Source, RequestResponseLog
 
 

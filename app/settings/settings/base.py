@@ -55,6 +55,7 @@ EXTERNAL_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'drf_yasg',
+    'djcelery_email',
 ]
 INTERNAL_APPS = [
     'currency',
@@ -159,7 +160,7 @@ MEDIA_ROOT = BASE_DIR.parent / 'static_content' / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
 
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 EMAIL_HOST = 'smtp.sendgrid.net'
@@ -193,6 +194,10 @@ CELERY_BROKER_URL = 'amqp://{0}:{1}@{2}:{3}//'.format(
     env.str('RABBITMQ_DEFAULT_PORT', '5672')
 )
 
+CELERY_EMAIL_TASK_CONFIG = {
+    'name': 'djcelery_email_send',
+    'ignore_result': True,
+}
 
 CELERY_BEAT_SCHEDULE = {
     'privatbank': {
